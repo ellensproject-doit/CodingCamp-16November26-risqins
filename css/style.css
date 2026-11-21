@@ -12,7 +12,7 @@
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   min-height: 100vh;
-  background: linear-gradient(135deg, #6c63ff 0%, #a78bfa 50%, #c084fc 100%);
+  background: linear-gradient(135deg, #168039 0%, #45BF55 50%, #97ED8A 100%);
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -44,7 +44,7 @@ body {
 .greeting-card .time {
   font-size: 2.6rem;
   font-weight: 700;
-  color: #6c63ff;
+  color: #168039;
   letter-spacing: 2px;
   line-height: 1;
 }
@@ -87,7 +87,7 @@ body {
 .timer-display {
   font-size: 3rem;
   font-weight: 700;
-  color: #6c63ff;
+  color: #168039;
   letter-spacing: 3px;
 }
 
@@ -116,7 +116,7 @@ body {
 }
 
 .btn-primary {
-  background: #6c63ff;
+  background: #168039;
   color: #ffffff;
 }
 
@@ -158,7 +158,7 @@ body {
 }
 
 .task-input-row input:focus {
-  border-color: #6c63ff;
+  border-color: #168039;
 }
 
 /* ---------- Task List ---------- */
@@ -191,7 +191,7 @@ body {
 .task-item input[type="checkbox"] {
   width: 16px;
   height: 16px;
-  accent-color: #6c63ff;
+  accent-color: #168039;
   cursor: pointer;
   flex-shrink: 0;
 }
@@ -213,7 +213,7 @@ body {
 .task-edit-input {
   flex: 1;
   padding: 4px 8px;
-  border: 1.5px solid #6c63ff;
+  border: 1.5px solid #168039;
   border-radius: 6px;
   font-size: 0.9rem;
   outline: none;
@@ -252,7 +252,7 @@ body {
 }
 
 .link-input-row input:focus {
-  border-color: #6c63ff;
+  border-color: #168039;
 }
 
 .link-input-row .btn {
@@ -276,7 +276,7 @@ body {
 
 .link-chip a {
   display: inline-block;
-  background: #6c63ff;
+  background: #168039;
   color: #ffffff;
   text-decoration: none;
   font-size: 0.82rem;
