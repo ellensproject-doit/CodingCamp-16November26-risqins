@@ -122,10 +122,38 @@ function saveTasks() {
   localStorage.setItem(STORAGE_KEY_TASKS, JSON.stringify(tasks));
 }
 
-function addTask() {
-  const text = taskInput.value.trim();
-  if (!text) return;
+function normalise(text) {
+  return text.trim().toLowerCase();
+}
 
+const duplicateWarningEl = document.getElementById('duplicate-warning');
+let   warningTimer       = null;
+
+function showWarning() {
+  duplicateWarningEl.classList.add('duplicate-warning--visible');
+  clearTimeout(warningTimer);
+  warningTimer = setTimeout(hideWarning, 3000);
+}
+
+function hideWarning() {
+  duplicateWarningEl.classList.remove('duplicate-warning--visible');
+  clearTimeout(warningTimer);
+  warningTimer = null;
+}
+
+function addTask() {
+  const text      = taskInput.value.trim();
+  if (!text) return;                             // empty guard (unchanged)
+
+  const normInput = normalise(text);
+  const duplicate = tasks.some(t => normalise(t.text) === normInput);
+
+  if (duplicate) {
+    showWarning();
+    return;                                      // retain text in input field
+  }
+
+  hideWarning();
   tasks.push({ id: Date.now(), text, done: false });
   saveTasks();
   renderTasks();
@@ -215,6 +243,7 @@ btnAddTask.addEventListener('click', addTask);
 taskInput.addEventListener('keydown', e => {
   if (e.key === 'Enter') addTask();
 });
+taskInput.addEventListener('input', hideWarning);
 
 renderTasks();
 

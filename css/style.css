@@ -336,3 +336,16 @@ body {
   }
 
 }
+
+/* ---------- Duplicate Warning ---------- */
+.duplicate-warning {
+  visibility: hidden;
+  color: #ef4444;
+  font-size: 0.82rem;
+  margin-top: 4px;
+  min-height: 1.2em;
+}
+
+.duplicate-warning--visible {
+  visibility: visible;
+}
