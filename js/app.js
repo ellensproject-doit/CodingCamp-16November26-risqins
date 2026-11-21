@@ -65,10 +65,16 @@ nameInput.addEventListener('keydown', e => {
 /*  2. FOCUS TIMER (Pomodoro — 25 min default)        */
 /* -------------------------------------------------- */
 
-const TIMER_DURATION = 25 * 60; // seconds
+const STORAGE_KEY_POMODORO = 'pomodoroMinutes';
 
-let timerTotal     = TIMER_DURATION;
-let timerRemaining = TIMER_DURATION;
+function loadPomodoroMinutes() {
+  const stored = parseInt(localStorage.getItem(STORAGE_KEY_POMODORO), 10);
+  return (Number.isInteger(stored) && stored >= 1 && stored <= 60) ? stored : 25;
+}
+
+let timerMinutes   = loadPomodoroMinutes();
+let timerTotal     = timerMinutes * 60;
+let timerRemaining = timerTotal;
 let timerInterval  = null;
 let timerRunning   = false;
 
@@ -119,6 +125,30 @@ btnStop.addEventListener('click', stopTimer);
 btnReset.addEventListener('click', resetTimer);
 
 renderTimer();
+
+// Duration input
+const timerMinutesInput    = document.getElementById('timer-minutes-input');
+const btnSetDuration       = document.getElementById('btn-set-duration');
+const timerDurationErrorEl = document.getElementById('timer-duration-error');
+
+timerMinutesInput.value = timerMinutes;
+
+function setDuration() {
+  const raw  = timerMinutesInput.value.trim();
+  const mins = Number(raw);
+  if (!raw || !Number.isInteger(mins) || mins < 1 || mins > 60) {
+    timerDurationErrorEl.textContent = 'Enter a whole number from 1 to 60.';
+    return;
+  }
+  timerDurationErrorEl.textContent = '';
+  timerMinutes = mins;
+  timerTotal   = mins * 60;
+  localStorage.setItem(STORAGE_KEY_POMODORO, mins);
+  resetTimer();
+}
+
+btnSetDuration.addEventListener('click', setDuration);
+timerMinutesInput.addEventListener('keydown', e => { if (e.key === 'Enter') setDuration(); });
 
 
 /* -------------------------------------------------- */

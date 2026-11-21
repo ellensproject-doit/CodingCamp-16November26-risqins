@@ -349,3 +349,31 @@ body {
 .duplicate-warning--visible {
   visibility: visible;
 }
+
+/* ---------- Timer Duration Input ---------- */
+.timer-duration-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.timer-duration-row input {
+  width: 90px;
+  padding: 6px 10px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.timer-duration-row input:focus {
+  border-color: #168039;
+}
+
+.timer-duration-error {
+  font-size: 0.78rem;
+  color: #ef4444;
+  min-height: 1.1em;
+}
