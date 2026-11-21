@@ -10,11 +10,16 @@ const timeEl   = document.getElementById('current-time');
 const dateEl   = document.getElementById('current-date');
 const greetEl  = document.getElementById('greeting-text');
 
-function getGreeting(hour) {
-  if (hour >= 5  && hour < 12) return 'Good Morning ☀️';
-  if (hour >= 12 && hour < 17) return 'Good Afternoon 🌤️';
-  if (hour >= 17 && hour < 21) return 'Good Evening 🌇';
-  return 'Good Night 🌙';
+const STORAGE_KEY_NAME = 'userName';
+let   savedName        = localStorage.getItem(STORAGE_KEY_NAME) || '';
+
+function getGreeting(hour, name) {
+  let base, emoji;
+  if (hour >= 5  && hour < 12)      { base = 'Good Morning';   emoji = '☀️'; }
+  else if (hour >= 12 && hour < 17) { base = 'Good Afternoon'; emoji = '🌤️'; }
+  else if (hour >= 17 && hour < 21) { base = 'Good Evening';   emoji = '🌇'; }
+  else                              { base = 'Good Night';     emoji = '🌙'; }
+  return name ? base + ', ' + name + ' ' + emoji : base + ' ' + emoji;
 }
 
 function updateClock() {
@@ -31,11 +36,29 @@ function updateClock() {
   dateEl.textContent =
     `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
 
-  greetEl.textContent = getGreeting(now.getHours());
+  greetEl.textContent = getGreeting(now.getHours(), savedName);
 }
 
 updateClock();
 setInterval(updateClock, 1000);
+
+// Name persistence
+const nameInput   = document.getElementById('name-input');
+const btnSaveName = document.getElementById('btn-save-name');
+
+if (savedName) nameInput.value = savedName;
+
+btnSaveName.addEventListener('click', () => {
+  const val = nameInput.value.trim();
+  if (!val) return;
+  savedName = val;
+  localStorage.setItem(STORAGE_KEY_NAME, savedName);
+  greetEl.textContent = getGreeting(new Date().getHours(), savedName);
+});
+
+nameInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') btnSaveName.click();
+});
 
 
 /* -------------------------------------------------- */
